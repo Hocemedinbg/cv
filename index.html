@@ -835,8 +835,19 @@
             }
 
             .profile-image-container {
-                margin: 0 auto;
+            /* (Assurez-vous que le width et le height sont définis ici) */
+            /* width: 150px; */
+            /* height: 150px; */
+            border-radius: 50%; /* Rendre le conteneur rond */
+            overflow: hidden;   /* Cacher ce qui dépasse du cercle */
             }
+
+/* Et s'assurer que l'image à l'intérieur remplit ce conteneur */
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
             .profile-image {
                 width: 150px;
