@@ -1071,6 +1071,30 @@
             font-size: 3rem;
             background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--border) 100%);
         }
+        /* --- REGLES POUR FORCER L'IMAGE DE PROFIL EN CERCLE AVEC BORDURE --- */
+
+/* Cible l'image pour la dimensionner et la rendre ronde */
+.cv-photo-display {
+    /* 1. Dimensionnement et Forme */
+    width: 180px !important;    /* Taille du cercle. Utilisez !important si nécessaire. */
+    height: 180px !important;   /* Doit être égale à la largeur. */
+    border-radius: 50% !important; /* Rendre l'image parfaitement ronde */
+    
+    /* 2. Style de l'Image */
+    object-fit: cover !important; /* Assure que l'image couvre le cercle sans étirement */
+    display: block !important;    /* Assure que l'image est traitée comme un bloc */
+    
+    /* 3. La Bordure ! */
+    border: 5px solid #00c793 !important; /* Bordure épaisse 5px, de couleur verte (#00c793) */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) !important; /* Ajoute une petite ombre pour l'effet "pop" */
+}
+
+/* Si votre ancien CSS avait des styles sur le conteneur, ils pourraient interférer. 
+   Vous pouvez ajouter ceci pour annuler toute mise en forme de texte (comme l'emoji) */
+.profile-image {
+    padding: 0 !important;
+    line-height: 0 !important;
+}
 
     </style>
 </head>
@@ -1084,10 +1108,12 @@
             <div class="header-content">
                 <div class="profile-image-container">
                     <div class="profile-image" role="img" aria-label="Hocemedin Benghorbel profile photo">
-                        <img src="images/Profile_photo.jpg" 
-                         alt="Hocemedin Benghorbel - Photo de profil"
-                        class="cv-photo-display">
-                    </div>
+                     <img src="images/Profile_photo.jpg" 
+                      alt="Hocemedin Benghorbel - Photo de profil"
+                      class="cv-photo-display">
+                      </div>
+                    <span class="status-badge">Open to Work</span> 
+                </div>
                     <span class="status-badge">Open to Work</span>
                 </div>
                 <div class="header-text">
