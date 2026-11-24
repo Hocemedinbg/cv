@@ -421,6 +421,35 @@
             color: var(--primary);
         }
 
+        /* ===== Mini avatar dans la barre de nav (visible uniquement quand la barre est ancrée) ===== */
+        nav .container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .container .nav-links {
+            flex: 1;
+        }
+
+        .nav-avatar {
+            width: 0;
+            height: 44px;
+            border: 0 solid #00c793;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 6px var(--shadow);
+            flex-shrink: 0;
+            opacity: 0;
+            transition: width 0.3s ease, border-width 0.3s ease, margin 0.3s ease, opacity 0.3s ease;
+        }
+
+        nav.is-stuck .nav-avatar {
+            width: 44px;
+            border-width: 2px;
+            margin-right: 1rem;
+            opacity: 1;
+        }
+
         /* ===== Main Content ===== */
         main {
             padding: 3rem 0;
@@ -914,6 +943,7 @@
             /* width: 150px; */
             /* height: 150px; */
             border-radius: 50%; /* Rendre le conteneur rond */
+            justify-self: center; /* Centre la photo ronde dans la grille sur mobile */
             }
 
 /* Et s'assurer que l'image à l'intérieur remplit ce conteneur */
@@ -924,8 +954,8 @@
 }
 
             .profile-image {
-                width: 150px;
-                height: 150px;
+                width: 180px;  /* aligné sur la taille réelle rendue par .cv-photo-display (180px !important) */
+                height: 180px;
             }
 
             .header-text .location {
@@ -943,6 +973,15 @@
             .nav-links a {
                 padding: 0.5rem 0.75rem;
                 font-size: 0.8rem;
+            }
+
+            .nav-avatar {
+                height: 36px;
+            }
+
+            nav.is-stuck .nav-avatar {
+                width: 36px;
+                margin-right: 0.75rem;
             }
 
             .timeline {
@@ -1222,7 +1261,7 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                             LinkedIn
                         </a>                        
-                        <a href="CV_Hocemedin_Benghorbel.pdf" download="CV_Hocemedin_Benghorbel.pdf" class="btn btn-secondary" aria-label="Download CV in PDF format">
+                        <a href="Hocemedin_Benghorbel_CV.pdf" download="Hocemedin_Benghorbel_CV.pdf" class="btn btn-secondary" aria-label="Download CV in PDF format">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                             Download CV
                         </a>
@@ -1235,6 +1274,7 @@
     <!-- ===== Navigation ===== -->
     <nav role="navigation" aria-label="Main navigation">
         <div class="container">
+            <img src="images/Profile_photo.jpg" alt="" class="nav-avatar" aria-hidden="true">
             <ul class="nav-links">
                 <li><a href="#summary">Summary</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -1941,6 +1981,20 @@
                 });
             });
         });
+    </script>
+    <script>
+        // Mini avatar : visible uniquement quand la barre de navigation est ancrée en haut (header hors écran)
+        (function () {
+            var nav = document.querySelector('nav');
+            var header = document.querySelector('header');
+            if (!nav || !header || typeof IntersectionObserver === 'undefined') return;
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    nav.classList.toggle('is-stuck', !entry.isIntersecting);
+                });
+            }, { threshold: 0 });
+            observer.observe(header);
+        })();
     </script>
 </body>
 </html>
